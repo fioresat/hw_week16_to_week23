@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'order.dart';
 
-
 import 'orders_repository.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,27 +22,6 @@ class _HomePageState extends State<HomePage> {
         .whenComplete(() => setState(() => _orders = _ordersRepo.orders));
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       title: Text('Orders App'),
-  //       actions: [
-  //         IconButton(
-  //           icon: Icon(Icons.person_add_alt),
-  //           onPressed: addOrderForCurrentCustomer,
-  //         ),
-  //       ],
-  //     ),
-  //     body: OrderDataTable(
-  //       // TODO: Pass in the orders
-  //       onSort: (columnIndex, ascending) {
-  //         // TODO: Query the database and sort the data
-  //       },
-  //     ),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,14 +41,12 @@ class _HomePageState extends State<HomePage> {
             sortColumnIndex: _sortColumnIndex,
             sortAscending: _sortAscending,
             columns: [
-
               const DataColumn(
                 label: Text('Customer'),
               ),
               const DataColumn(
                 label: Text('Price'),
                 numeric: true,
-
               ),
               DataColumn(
                 label: Container(),
@@ -79,7 +55,6 @@ class _HomePageState extends State<HomePage> {
             rows: _orders.map((order) {
               return DataRow(
                 cells: [
-
                   DataCell(
                     Text(order.name),
                     onTap: () {
@@ -182,7 +157,8 @@ class _HomePageState extends State<HomePage> {
           actions: [
             TextButton(
               onPressed: () async {
-                await _ordersRepo.updateOrder(order,
+                await _ordersRepo.updateOrder(
+                  order,
                   OrderEntity(
                     name: nameController.text,
                     price: priceController.text,
@@ -199,12 +175,5 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
-  }
-
-  void _onDataColumnSort(int columnIndex, bool ascending) {
-    setState(() {
-      _sortColumnIndex = columnIndex;
-      _sortAscending = ascending;
-    });
   }
 }
