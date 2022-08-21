@@ -1,6 +1,6 @@
 import 'objectbox.g.dart';
 import 'order.dart';
-
+import 'dart:async';
 
 class OrdersRepository {
   late final Store _store;
@@ -13,7 +13,16 @@ class OrdersRepository {
     _box = _store.box<OrderEntity>();
   }
 
-  Future addNote(OrderEntity order) async {
+  Future addOrder(OrderEntity order) async {
     await _box.putAsync(order);
+  }
+
+  Future removeOrder(OrderEntity order) async {
+    await _box.remove(order.id);
+  }
+
+  Future updateOrder(OrderEntity order1, OrderEntity order2) async {
+    await _box.remove(order1.id);
+    await _box.putAsync(order2);
   }
 }
