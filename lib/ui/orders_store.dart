@@ -18,10 +18,13 @@ abstract class _OrdersStore with Store {
 
   _OrdersStore(this._ordersInteractor);
 
+  Future initStore() async{
+  await _ordersInteractor.init();
+}
+
   @action
   Future getData() async {
-    await _ordersInteractor.init();
-
+    value = _ordersInteractor.orders;
   }
 
   Future addOrder(OrderModel order) => _ordersInteractor.addOrder(order);

@@ -1,4 +1,6 @@
 
+import 'package:injectable/injectable.dart';
+
 import '../../data/orders_repository.dart';
 import '../model/order_model.dart';
 

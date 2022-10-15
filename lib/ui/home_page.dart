@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../di/config.dart';
 import '../domain/model/order_model.dart';
 import 'orders_store.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -17,7 +18,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _viewModel.getData();
+    _viewModel.initStore().whenComplete(() => _viewModel.getData());
+  //  _viewModel.getData();
     // _ordersRepo
     //     .initDB()
     //     .whenComplete(() => setState(() => _orders = _ordersRepo.orders));
@@ -71,6 +73,7 @@ class _HomePageState extends State<HomePage> {
                       const Icon(Icons.delete),
                       onTap: () async {
                         await _viewModel.removeOrder(_viewModel.value[index]);
+                        _viewModel.getData();
                       },
                     ),
                   ],
@@ -115,6 +118,7 @@ class _HomePageState extends State<HomePage> {
                     price: priceController.text,
                   ),
                 );
+                _viewModel.getData();
                 Navigator.pop(context);
               },
               child: const Text('Add'),
